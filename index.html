@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e252a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Four Seasons" />
+  <meta name="description" content="A private calendar for the music you love." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <title>The Four Seasons · Your Music Repertoire</title>
+  <style>
+    :root{--ink:#1e252a;--ink2:#434b4c;--muted:#727874;--paper:#f7f4ed;--white:#fffefb;--stroke:#e1ded5;--subtle:#f1eee6;--shadow:0 10px 36px rgba(32,34,33,.055);--spring:#90b49b;--summer:#e7bf55;--autumn:#c87c57;--winter:#82abc6;--waiting:#b8aea5;--accent:var(--autumn);--accent-light:#f9eee8}
+    *{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed}a{color:inherit}::selection{background:#d8e4df}
+    .page{max-width:1050px;margin:0 auto;padding:0 36px 78px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:30px 0 25px;gap:15px}.brand{display:flex;align-items:center;gap:13px;min-width:0}.brand-icon{width:48px;height:48px;border-radius:12px;box-shadow:0 4px 12px #1e252a1a;flex-shrink:0}.brand-title{font-weight:780;letter-spacing:-.045em;font-size:21px;line-height:1.05}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.13em;font-weight:700;text-transform:uppercase;margin-top:5px}.ghost-btn{background:transparent;border:1px solid var(--stroke);border-radius:11px;color:var(--ink2);font-size:13px;font-weight:650;min-height:39px;padding:8px 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background .15s}.ghost-btn:hover{background:#eae6dd}.ghost-btn:focus-visible,.primary-btn:focus-visible,.season-tile:focus-visible,.row-btn:focus-visible,.text-btn:focus-visible,.close-btn:focus-visible{outline:3px solid #477cbd;outline-offset:2px}
+    .hero{background:var(--ink);border-radius:22px;color:#faf9f4;padding:31px 35px 30px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:var(--shadow);min-height:198px}.hero-copy{z-index:1;max-width:640px}.eyebrow{font-size:10px;letter-spacing:.18em;font-weight:800;text-transform:uppercase;color:#e4d9cd}.hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:normal;letter-spacing:-.055em;font-size:clamp(30px,4.7vw,48px);line-height:1.09;margin:13px 0 13px}.hero-p{color:#deded9;font-size:14px;line-height:1.65;margin:0;max-width:540px}.hero-art{width:172px;height:155px;position:relative;flex-shrink:0;transform:rotate(-9deg);opacity:.95}.hero-art .block{position:absolute;border:7px solid var(--ink);box-shadow:0 0 0 1px #ffffff11}.b1{background:var(--spring);left:0;top:0;width:54%;height:58%}.b2{background:var(--summer);right:0;top:0;width:46%;height:43%}.b3{background:var(--autumn);left:0;bottom:0;width:54%;height:43%}.b4{background:var(--winter);right:0;bottom:0;width:46%;height:58%}
+    .section-label{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:28px 0 13px}.section-label h2{font-size:14px;margin:0;letter-spacing:-.015em}.section-label p{color:var(--muted);font-size:12px;margin:0}.season-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.season-tile{min-width:0;text-align:left;padding:15px 15px 14px;min-height:103px;background:var(--white);border:1px solid var(--stroke);border-radius:15px;position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;box-shadow:0 1px 4px rgba(20,20,20,.02);transition:border-color .15s,transform .15s,background .15s}.season-tile:hover{transform:translateY(-2px);border-color:#aeb0ab}.season-tile.active{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:#fffcf7}.season-marker{display:block;width:23px;height:7px;border-radius:5px;margin-bottom:12px}.season-top{display:flex;justify-content:space-between;width:100%;gap:5px}.season-title{font-size:15px;font-weight:780;letter-spacing:-.035em}.tile-now{font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;background:#e9eadf;padding:4px 6px;border-radius:5px;align-self:flex-start}.season-count{font-size:11px;color:var(--muted);margin-top:5px}.waiting-tile{width:100%;margin-top:10px;display:flex;align-items:center;justify-content:space-between;text-align:left;gap:12px;padding:13px 17px;background:var(--white);border:1px solid var(--stroke);border-radius:13px;min-height:65px}.waiting-tile:hover{border-color:#aeb0ab}.waiting-tile.active{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:#fffcf7}.waiting-left{display:flex;align-items:center;gap:13px;min-width:0}.waiting-symbol{width:29px;height:29px;display:grid;place-items:center;border-radius:8px;background:#e6e2dd;color:#585b5a;font-size:20px;font-weight:500}.waiting-title{font-weight:750;font-size:13px}.waiting-detail{font-size:12px;color:var(--muted);margin-top:3px}.count-pill{background:var(--subtle);border-radius:18px;padding:5px 10px;font-size:12px;color:var(--ink2);font-weight:700}
+    .content{background:var(--white);border:1px solid var(--stroke);border-radius:18px;margin-top:22px;overflow:hidden;box-shadow:var(--shadow)}.content-head{padding:25px 26px 17px;border-bottom:1px solid var(--stroke)}.content-titleline{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.content h2{font-family:Georgia,"Times New Roman",serif;font-size:29px;font-weight:normal;letter-spacing:-.055em;margin:0}.content-subtitle{margin:7px 0 0;color:var(--muted);font-size:13px;line-height:1.5}.primary-btn{background:var(--ink);color:white;border:1px solid var(--ink);border-radius:10px;min-height:40px;padding:9px 14px;white-space:nowrap;font-size:12px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background .15s}.primary-btn:hover{background:#39424a}.primary-btn:disabled{opacity:.5}.search-wrap{position:relative;margin-top:19px}.search-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#7c817e}.search-wrap input{width:100%;background:var(--paper);border:1px solid #e5e2da;border-radius:11px;padding:12px 13px 12px 39px;outline:none;font-size:13px;color:var(--ink);min-height:43px}.search-wrap input:focus{border-color:#8a989f;box-shadow:0 0 0 3px #8a989f22}.library-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 26px;background:#f8f6f1;border-bottom:1px solid var(--stroke);font-size:11px;color:#656d69}.library-status strong{color:var(--ink2)}.library-status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);vertical-align:middle;margin-right:5px}.results{min-height:110px}.letter-heading{font-size:10px;font-weight:850;letter-spacing:.15em;text-transform:uppercase;color:#878b87;background:#f8f6f1;padding:9px 26px 9px;border-bottom:1px solid var(--stroke);border-top:1px solid var(--stroke)}.letter-heading:first-child{border-top:0}.work-row{display:flex;align-items:center;gap:12px;padding:15px 26px;border-bottom:1px solid #efede8}.work-row:last-child{border-bottom:0}.work-info{flex:1;min-width:0}.work-title{font-size:14px;font-weight:670;letter-spacing:-.01em;line-height:1.4;overflow-wrap:anywhere}.work-composer{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.35;overflow-wrap:anywhere}.work-tag{display:inline-block;margin-left:7px;font-size:10px;color:#59615e;background:#eeeee9;padding:3px 6px;border-radius:4px;vertical-align:middle;font-weight:600}.work-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}.row-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:35px;border-radius:8px;border:1px solid var(--stroke);background:var(--white);color:var(--ink2);padding:6px 10px;font-size:11px;font-weight:700;text-decoration:none}.row-btn:hover{background:var(--subtle)}.row-btn.play{background:#f2f5f2;border-color:#dbe5df;color:#365448}.row-btn.play:hover{background:#e7efe9}.row-btn.square{width:35px;padding:6px}.row-btn svg{flex-shrink:0}.lock-msg{font-size:11px;color:#999b96;white-space:nowrap}.empty{padding:45px 24px 50px;text-align:center}.empty-art{font-family:Georgia,serif;font-size:36px;color:#b2ada4;line-height:1}.empty h3{margin:13px 0 7px;font-family:Georgia,serif;font-size:21px;font-weight:normal}.empty p{font-size:13px;line-height:1.6;color:var(--muted);max-width:420px;margin:0 auto 18px}.empty .primary-btn{margin:0 auto}.bottom-note{font-size:12px;line-height:1.7;color:var(--muted);text-align:center;padding:18px 12px 0}
+    .footer{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#92948d;font-size:11px;margin-top:22px}.footer strong{color:#71746e}.text-btn{background:none;border:0;padding:3px 0;color:#515a58;text-decoration:underline;text-underline-offset:3px;font-weight:650;font-size:11px}
+    .notice{margin-top:13px;background:#f8f2e2;border:1px solid #eadbb8;padding:12px 14px;border-radius:11px;font-size:12px;line-height:1.5;color:#6c5b31}.notice.good{background:#edf4ed;border-color:#cbdcce;color:#415d46}.notice strong{display:block;font-size:12px;margin-bottom:3px}
+    .overlay{position:fixed;inset:0;z-index:10;background:rgba(22,28,31,.53);display:none;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(3px)}.overlay.open{display:flex}.modal{width:100%;max-width:520px;max-height:min(760px,calc(100dvh - 34px));overflow-y:auto;background:var(--white);border-radius:20px;padding:24px;box-shadow:0 20px 90px #0003}.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:19px}.modal-head h2{font-size:26px;font-family:Georgia,serif;letter-spacing:-.05em;font-weight:normal;margin:0}.modal-head p{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.5}.close-btn{height:32px;width:32px;border:1px solid var(--stroke);border-radius:9px;background:var(--white);color:var(--ink2);font-size:18px;line-height:1;flex-shrink:0}.field{margin-bottom:15px}.field label{display:block;font-size:12px;font-weight:750;color:var(--ink2);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid #d5d3cb;border-radius:9px;color:var(--ink);font-size:14px;padding:11px 12px;outline:0;background:#fff;min-height:43px}.field textarea{resize:vertical;line-height:1.65;min-height:135px}.field input:focus,.field select:focus,.field textarea:focus{border-color:#6f91a3;box-shadow:0 0 0 3px #6f91a322}.field select:disabled{color:#878984;background:#f1eee8}.field-hint{font-size:11px;color:var(--muted);line-height:1.55;margin-top:7px}.modal-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;margin-top:22px}.danger-btn{border:1px solid #edd3cb;background:#fff6f3;color:#9b3f2c;border-radius:9px;min-height:39px;padding:8px 12px;font-weight:700;font-size:12px}.danger-btn:hover{background:#f8e5e0}.modal-error{font-size:12px;line-height:1.5;color:#9b3f2c;background:#fbf0ed;border-radius:9px;padding:9px 11px;display:none;margin-bottom:12px}.modal-error.visible{display:block}.modal-divider{border:0;border-top:1px solid var(--stroke);margin:22px 0}.setting-heading{font-weight:760;font-size:13px;margin-bottom:5px}.setting-copy{font-size:12px;line-height:1.55;color:var(--muted);margin:0 0 11px}.setting-inline{display:flex;flex-wrap:wrap;gap:8px}.info-box{border-radius:11px;background:#f4f2ec;padding:12px 13px;font-size:12px;line-height:1.6;color:#686c67}.muted{color:var(--muted)}.toast{z-index:20;position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#202a2e;color:white;border-radius:10px;padding:11px 18px;font-size:12px;font-weight:650;box-shadow:0 10px 30px #0002;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 24px);text-align:center}.toast.visible{opacity:1;transform:translate(-50%,0)}.toast.error{background:#8e372e}
+    @media(max-width:760px){.page{padding:0 17px 48px}.topbar{padding:18px 0}.brand-icon{width:42px;height:42px;border-radius:10px}.brand-title{font-size:19px}.brand-sub{font-size:9px}.hero{padding:25px 21px;min-height:171px;border-radius:17px}.hero h1{font-size:34px}.hero-art{width:103px;height:116px;margin-right:-25px;opacity:.7}.hero-p{font-size:12px}.section-label{margin-top:23px}.season-grid{gap:6px}.season-tile{padding:11px 9px 10px;min-height:90px;border-radius:11px}.season-title{font-size:12px}.season-count{font-size:10px}.season-marker{width:20px;height:6px;margin-bottom:12px}.tile-now{font-size:8px;padding:3px 4px}.content-head{padding:20px 15px 16px}.content h2{font-size:26px}.work-row{padding:14px 15px;gap:7px}.letter-heading,.library-status{padding-left:15px;padding-right:15px}.row-btn{font-size:10px;padding:6px 8px}.work-title{font-size:13px}.work-composer{font-size:11px}.lock-msg{font-size:10px}.footer{align-items:flex-start}.modal{padding:21px;max-height:calc(100dvh - 24px)}.overlay{padding:12px}}
+    @media(max-width:430px){.hero-art{display:none}.hero{min-height:154px}.hero h1{font-size:33px}.season-tile{padding:10px 7px}.season-title{font-size:11px}.season-count{font-size:9px}.tile-now{display:none}.work-actions{gap:5px}.work-tag{display:inline-block;margin-left:0;margin-top:5px}.work-row{align-items:flex-start}.work-actions{padding-top:2px}.row-btn.square{width:32px;min-height:32px}.row-btn.play{min-height:32px}.lock-msg{max-width:80px;white-space:normal;text-align:right}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="topbar">
+    <div class="brand"><img class="brand-icon" src="icons/icon.svg" alt="Four colored rectangles in a black grid" /><div><div class="brand-title">The Four Seasons</div><div class="brand-sub">A calendar of music</div></div></div>
+    <button class="ghost-btn" id="settingsBtn" type="button" aria-label="Open settings"><span aria-hidden="true">⚙</span> Settings</button>
+  </header>
+  <section class="hero" aria-label="Current music season">
+    <div class="hero-copy"><div class="eyebrow" id="heroEyebrow">Your listening season</div><h1 id="heroTitle">A season for every sound.</h1><p class="hero-p" id="heroDetail"></p></div>
+    <div class="hero-art" aria-hidden="true"><div class="block b1"></div><div class="block b2"></div><div class="block b3"></div><div class="block b4"></div></div>
+  </section>
+  <div id="setupNotice" class="notice" hidden></div>
+  <div class="section-label"><h2>Your four repertoires</h2><p id="seasonHint">Each work has its appointed season.</p></div>
+  <nav class="season-grid" id="seasonGrid" aria-label="Choose a seasonal repertoire"></nav>
+  <button class="waiting-tile" id="waitingBtn" type="button"><div class="waiting-left"><div class="waiting-symbol" aria-hidden="true">⋯</div><div><div class="waiting-title">Waiting room</div><div class="waiting-detail">Discoveries you are still getting to know</div></div></div><span class="count-pill" id="waitingCount">0 works</span></button>
+  <section class="content" aria-label="Catalog">
+    <div class="content-head"><div class="content-titleline"><div><h2 id="listTitle">Autumn</h2><p class="content-subtitle" id="listSubtitle"></p></div><button class="primary-btn" id="addBtn" type="button"><span aria-hidden="true" style="font-size:16px;line-height:0">+</span> Add work</button></div>
+      <div class="search-wrap"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input type="search" id="searchInput" placeholder="Search all composers and works" aria-label="Search all composers and works" autocomplete="off" spellcheck="false" /></div>
+    </div>
+    <div class="library-status"><span id="resultsCount" aria-live="polite">0 works</span><span id="viewStatus"></span></div>
+    <div class="results" id="results"></div>
+  </section>
+  <div class="bottom-note">YouTube finds the recording. This catalog decides whether it's in season.<br/>Accidental autoplay doesn't count; your Chores app handles the rest.</div>
+  <footer class="footer"><span>Stored privately on this device · <strong>Export backups regularly</strong></span><button class="text-btn" id="backupBtn" type="button">Export JSON backup</button></footer>
+</main>
+
+<div class="overlay" id="editOverlay" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="modal-head"><div><h2 id="editTitle">Add a work</h2><p id="editDescription">A work is whatever the composer packaged as one.</p></div><button class="close-btn" type="button" data-close="editOverlay" aria-label="Close">×</button></div>
+    <form id="workForm" novalidate>
+      <div class="field"><label for="composerInput">Composer</label><input id="composerInput" maxlength="120" required placeholder="e.g. Béla Bartók" autocomplete="off" /></div>
+      <div class="field"><label for="workInput">Composition</label><input id="workInput" maxlength="220" required placeholder="e.g. Viola Concerto" autocomplete="off" /></div>
+      <div class="field"><label for="seasonSelect">Place in</label><select id="seasonSelect"><option value="Waiting">Waiting room (unrestricted listening)</option><option value="Spring">Spring</option><option value="Summer">Summer</option><option value="Autumn">Autumn</option><option value="Winter">Winter</option></select><div class="field-hint" id="seasonSelectHint">New discoveries can stay in the waiting room until you're ready to commit.</div></div>
+      <div class="modal-error" id="workError" role="alert"></div>
+      <div class="modal-actions"><button class="danger-btn" id="deleteBtn" type="button" style="margin-right:auto" hidden>Delete</button><button class="ghost-btn" type="button" data-close="editOverlay">Cancel</button><button class="primary-btn" type="submit" id="saveWorkBtn">Add work</button></div>
+    </form>
+    <div id="bulkPrompt"><hr class="modal-divider"/><div class="setting-heading">Entering a whole collection?</div><p class="setting-copy">Add many works at once, one per line.</p><button class="ghost-btn" id="bulkFromEditBtn" type="button">Bulk add works</button></div>
+  </div>
+</div>
+<div class="overlay" id="bulkOverlay" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bulkTitle">
+    <div class="modal-head"><div><h2 id="bulkTitle">Add several works</h2><p>One composition per line. Use <strong>Composer | Work</strong> as the format.</p></div><button class="close-btn" type="button" data-close="bulkOverlay" aria-label="Close">×</button></div>
+    <form id="bulkForm" novalidate>
+      <div class="field"><label for="bulkText">List of compositions</label><textarea id="bulkText" placeholder="Sibelius | Symphony No. 5\nTaneyev | Symphony No. 4\nMyaskovsky | Symphony No. 21" spellcheck="false"></textarea><div class="field-hint">A vertical bar (|), tab, or spaced dash separates composer and work. Duplicates are skipped.</div></div>
+      <div class="field"><label for="bulkSeason">Assign all these works to</label><select id="bulkSeason"><option value="Waiting">Waiting room</option><option value="Spring">Spring</option><option value="Summer">Summer</option><option value="Autumn">Autumn</option><option value="Winter">Winter</option></select></div>
+      <div class="modal-error" id="bulkError" role="alert"></div>
+      <div class="modal-actions"><button class="ghost-btn" type="button" data-close="bulkOverlay">Cancel</button><button class="primary-btn" type="submit">Add compositions</button></div>
+    </form>
+  </div>
+</div>
+<div class="overlay" id="settingsOverlay" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal-head"><div><h2 id="settingsTitle">House rules</h2><p>Simple constraints, strictly observed.</p></div><button class="close-btn" type="button" data-close="settingsOverlay" aria-label="Close">×</button></div>
+    <div class="setting-heading">Seasonal assignments</div><p class="setting-copy">Spring · Mar–May<br/>Summer · Jun–Aug<br/>Autumn · Sep–Nov<br/>Winter · Dec–Feb</p>
+    <div class="info-box" id="editWindowInfo"></div>
+    <div id="setupControl" style="margin-top:16px"><div class="setting-heading">Initial organization</div><p class="setting-copy">Take your time arranging your first repertoire. When you're satisfied, lock the assignments. Later, existing works may be moved only January 1–7.</p><button class="primary-btn" id="completeSetupBtn" type="button">Finish initial setup and lock assignments</button></div>
+    <hr class="modal-divider"/>
+    <div class="setting-heading">Back up your repertoire</div><p class="setting-copy">Your works are stored in this browser on this device, not on a server. Export a JSON backup regularly, especially before clearing browser data or switching phones. Imports replace the current catalog.</p>
+    <div class="setting-inline"><button class="ghost-btn" type="button" id="exportBtn">↓ Export JSON</button><button class="ghost-btn" type="button" id="importBtn">↑ Import JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden /></div>
+    <hr class="modal-divider"/>
+    <div class="setting-heading">Adding music</div><p class="setting-copy">New works can be added to any season at any time. The waiting room is for unlimited trial listening; promoting a discovery to a season makes the seasonal rule apply immediately. Already-assigned works stay put until January 1–7, except during your initial setup.</p>
+    <button class="ghost-btn" id="bulkFromSettingsBtn" type="button">Bulk add works</button>
+    <hr class="modal-divider"/>
+    <p class="setting-copy">Nothing is tracked when you open YouTube. The app does not count plays, rate music, or judge whether you followed the rules.</p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const KEY = 'four-seasons-repertoire:v1';
+  const seasons = ['Spring','Summer','Autumn','Winter'];
+  const allPlaces = [...seasons,'Waiting'];
+  const colors = {Spring:'#90b49b',Summer:'#e7bf55',Autumn:'#c87c57',Winter:'#82abc6',Waiting:'#b8aea5'};
+  const dateNow = () => new Date();
+  const $ = id => document.getElementById(id);
+  const validPlace = value => allPlaces.includes(value);
+  const clean = s => String(s ?? '').trim().replace(/\s+/g,' ');
+  const normalized = s => clean(s).normalize('NFKC').toLocaleLowerCase();
+  const identity = (composer,title) => `${normalized(composer)}␟${normalized(title)}`;
+  const makeId = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `w-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  let store = {version:1,setupComplete:false,works:[]};
+  try {
+    const saved = localStorage.getItem(KEY);
+    if(saved){
+      const data = JSON.parse(saved);
+      if(data && Array.isArray(data.works)) {
+        store = {version:1,setupComplete:Boolean(data.setupComplete),works:data.works.filter(w => w && typeof w.composer==='string' && typeof w.title==='string' && validPlace(w.season)).map(w => ({id:String(w.id||makeId()),composer:clean(w.composer),title:clean(w.title),season:w.season,addedAt:w.addedAt||new Date().toISOString()}))};
+      }
+    }
+  } catch(err){ console.warn('Catalog load failed',err); setTimeout(()=>toast('Could not read saved data. Please restore a JSON backup.',true),500); }
+  const getSeason = (d=dateNow()) => {const m=d.getMonth();return m>=11||m<=1?'Winter':m<=4?'Spring':m<=7?'Summer':'Autumn';};
+  const inJanuaryWeek = (d=dateNow()) => d.getMonth()===0 && d.getDate()<=7;
+  const mayReorganize = () => !store.setupComplete || inJanuaryWeek();
+  const unlocked = place => place==='Waiting' || place===getSeason();
+  const canMove = work => work.season==='Waiting' || mayReorganize();
+  const nextSeasonStart = (d=dateNow()) => { const y=d.getFullYear();switch(getSeason(d)){case 'Winter':return new Date(d.getMonth()===11?y+1:y,2,1);case 'Spring':return new Date(y,5,1);case 'Summer':return new Date(y,8,1);default:return new Date(y,11,1);} };
+  const longDate = date => date.toLocaleDateString(undefined,{month:'long',day:'numeric'});
+  const count = season => store.works.filter(w=>w.season===season).length;
+  const prettyCount = n => `${n} ${n===1?'work':'works'}`;
+  let view = getSeason(); let editingId = null; let toastTimer=null; let modalReturnFocus=null;
+  const safeText = (tag,cls,value) => {const node=document.createElement(tag);if(cls)node.className=cls;node.textContent=value;return node;};
+  const icon = (name,size=16) => {
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('width',size);svg.setAttribute('height',size);svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.8');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');svg.setAttribute('aria-hidden','true');
+    const paths={edit:['M12 20h9','M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z'],external:['M7 17 17 7','M8 7h9v9'],lock:['M5 11h14v10H5z','M8 11V7a4 4 0 0 1 8 0v4'],arrow:['M5 12h14','m13 6 6 6-6 6']};
+    (paths[name]||[]).forEach(d=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);svg.appendChild(p);});return svg;
+  };
+  const persist = () => {try{localStorage.setItem(KEY,JSON.stringify(store));return true;}catch(e){console.error(e);toast('Unable to save on this device. Export a backup now.',true);return false;}};
+  function toast(message,error=false){const node=$('toast');node.textContent=message;node.classList.toggle('error',error);node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),3500);}
+  function render(){
+    const today=getSeason();document.documentElement.style.setProperty('--accent',colors[today]);
+    $('heroEyebrow').textContent=`Now listening · ${today}`;
+    $('heroTitle').textContent=`${today} is in season.`;
+    $('heroDetail').textContent=`Your ${today.toLowerCase()} repertoire is available through ${longDate(new Date(nextSeasonStart().getTime()-86400000))}. ${nextSeasonStart().toLocaleDateString(undefined,{month:'long',day:'numeric'})} brings the next quarter of your collection back to life.`;
+    $('seasonHint').textContent=store.setupComplete ? (inJanuaryWeek()?'Reorganization week: January 1–7.':'Assignments are fixed until January 1–7.') : 'Initial organization is open. Take your time.';
+    const notice=$('setupNotice');
+    if(!store.setupComplete){notice.hidden=false;notice.className='notice';notice.replaceChildren(safeText('strong','', 'Initial setup is open'),document.createTextNode('Arrange and move works freely while building your collection. When you’re satisfied, use Settings to lock the seasons.'));}
+    else if(inJanuaryWeek()){notice.hidden=false;notice.className='notice good';notice.replaceChildren(safeText('strong','', 'Annual reorganization is open'),document.createTextNode('You may move existing works until the end of January 7. The next opportunity begins January 1.'));}
+    else{notice.hidden=true;}
+    const grid=$('seasonGrid');grid.replaceChildren();
+    seasons.forEach(season => {
+      const b=document.createElement('button');b.type='button';b.className=`season-tile${view===season?' active':''}`;b.setAttribute('aria-pressed',String(view===season));b.setAttribute('aria-label',`${season}: ${prettyCount(count(season))}${season===today?', currently in season':''}`);
+      const strip=safeText('span','season-marker','');strip.style.background=colors[season];b.appendChild(strip);
+      const line=safeText('div','season-top','');line.appendChild(safeText('span','season-title',season));if(season===today)line.appendChild(safeText('span','tile-now','Now'));b.appendChild(line);
+      b.appendChild(safeText('span','season-count',prettyCount(count(season))));b.onclick=()=>{view=season;$('searchInput').value='';render();};grid.appendChild(b);
+    });
+    $('waitingBtn').classList.toggle('active',view==='Waiting');$('waitingBtn').setAttribute('aria-pressed',String(view==='Waiting'));$('waitingCount').textContent=prettyCount(count('Waiting'));
+    const query=normalized($('searchInput').value);
+    const isSearch=!!query;
+    $('listTitle').textContent=isSearch?'Search results':view==='Waiting'?'Waiting room':`${view} repertoire`;
+    $('listSubtitle').textContent=isSearch?'Searching the entire catalog, including other seasons.':view==='Waiting'?'Unrestricted listening while you decide what deserves a permanent place.':view===today?'Every work here is currently available.':`These works are reserved for ${view.toLowerCase()}. You can browse them now, but YouTube links appear only in season.`;
+    const works=store.works.filter(w=>isSearch ? normalized(`${w.composer} ${w.title}`).includes(query) : w.season===view)
+      .sort((a,b)=>a.composer.localeCompare(b.composer,undefined,{sensitivity:'base',numeric:true})||a.title.localeCompare(b.title,undefined,{sensitivity:'base',numeric:true}));
+    $('resultsCount').textContent=`${prettyCount(works.length)}${isSearch?' found':''}`;
+    $('viewStatus').textContent=isSearch?'All seasons':view==='Waiting'?'Always available':view===today?'● In season':'Reserved until '+longDate(nextSeasonFor(view));
+    const result=$('results');result.replaceChildren();
+    if(works.length===0){
+      const empty=safeText('div','empty','');empty.appendChild(safeText('div','empty-art',isSearch?'⌕':view==='Waiting'?'…':'Ⅳ'));
+      empty.appendChild(safeText('h3','',isSearch?'Nothing in the catalog matches.':view==='Waiting'?'A room for new discoveries.':'An empty page, for now.'));
+      empty.appendChild(safeText('p','',isSearch?'Try a different composer or title.':view==='Waiting'?'Add works you are still getting acquainted with. You can listen to them as often as you like before assigning a season.':'Add works one by one—or enter a long list all at once. The four seasons will fill up as you remember your repertoire.'));
+      if(!isSearch){let add=safeText('button','primary-btn','Add your first works');add.type='button';add.onclick=()=>openAdd(true);empty.appendChild(add);}
+      result.appendChild(empty);return;
+    }
+    let currentLetter=null;
+    works.forEach(w=>{
+      const letter=w.composer.trim().charAt(0).toLocaleUpperCase()||'#';
+      if(letter!==currentLetter){currentLetter=letter;result.appendChild(safeText('div','letter-heading',letter));}
+      const row=safeText('div','work-row','');
+      const info=safeText('div','work-info','');
+      const title=safeText('div','work-title',w.title);
+      if(isSearch){title.appendChild(safeText('span','work-tag',w.season==='Waiting'?'Waiting room':w.season));}
+      info.appendChild(title);info.appendChild(safeText('div','work-composer',w.composer));row.appendChild(info);
+      const actions=safeText('div','work-actions','');
+      if(unlocked(w.season)){
+        const a=document.createElement('a');a.className='row-btn play';a.href=`https://www.youtube.com/results?search_query=${encodeURIComponent(w.composer+' '+w.title)}`;a.target='_blank';a.rel='noopener noreferrer';a.title=`Search YouTube for ${w.composer}: ${w.title}`;a.appendChild(icon('external',13));a.appendChild(document.createTextNode('YouTube'));actions.appendChild(a);
+      } else {
+        const s=safeText('span','lock-msg','Out of season');s.title=`Available ${longDate(nextSeasonFor(w.season))}`;actions.appendChild(s);
+      }
+      const edit=safeText('button','row-btn square','');edit.type='button';edit.appendChild(icon('edit',14));edit.setAttribute('aria-label',`Edit ${w.composer}: ${w.title}`);edit.onclick=()=>openEdit(w.id);actions.appendChild(edit);
+      row.appendChild(actions);result.appendChild(row);
+    });
+    renderSettings();
+  }
+  function nextSeasonFor(place, d=dateNow()) {
+    const y=d.getFullYear();const m={Spring:2,Summer:5,Autumn:8,Winter:11};if(!(place in m))return d;
+    const date=new Date(y,m[place],1);return date>d?date:new Date(y+1,m[place],1);
+  }
+  function renderSettings(){
+    const state=!store.setupComplete ? 'Initial setup: assignments may be changed at any time.' : inJanuaryWeek() ? 'January 1–7: you can rearrange existing works this week.' : 'Season assignments are locked until January 1–7. You can still add new works and move discoveries out of the waiting room.';
+    $('editWindowInfo').textContent=state;
+    $('setupControl').hidden=store.setupComplete;
+  }
+  function openModal(id){modalReturnFocus=document.activeElement;$(id).classList.add('open');document.body.style.overflow='hidden';const el=$(id).querySelector('input:not([type="file"]),textarea,button');if(el)setTimeout(()=>el.focus(),30);}
+  function closeModal(id){$(id).classList.remove('open');if(!document.querySelector('.overlay.open'))document.body.style.overflow='';if(modalReturnFocus&&document.contains(modalReturnFocus))modalReturnFocus.focus();}
+  function modalError(id,msg){$(id).textContent=msg;$(id).classList.toggle('visible',Boolean(msg));}
+  function openAdd(bulk=false){
+    if(bulk){$('bulkText').value='';$('bulkSeason').value=allPlaces.includes(view)?view:'Waiting';modalError('bulkError','');openModal('bulkOverlay');return;}
+    editingId=null;$('editTitle').textContent='Add a work';$('editDescription').textContent='A work is whatever the composer packaged as one.';$('composerInput').value='';$('workInput').value='';$('seasonSelect').disabled=false;$('seasonSelect').value=allPlaces.includes(view)?view:'Waiting';$('seasonSelectHint').textContent='New works can join any season, or stay in the waiting room for trial listening.';$('saveWorkBtn').textContent='Add work';$('deleteBtn').hidden=true;$('bulkPrompt').hidden=false;modalError('workError','');openModal('editOverlay');
+  }
+  function openEdit(id){
+    const w=store.works.find(item=>item.id===id);if(!w)return;
+    editingId=id;$('editTitle').textContent='Edit composition';$('editDescription').textContent='Changes to titles are always allowed; moving an assigned work is seasonal.';$('composerInput').value=w.composer;$('workInput').value=w.title;$('seasonSelect').value=w.season;
+    $('seasonSelect').disabled=!canMove(w);
+    $('seasonSelectHint').textContent=!canMove(w)?'This work is committed to its season. Reassignments reopen January 1–7.':w.season==='Waiting'?'Promote it to any season when you’re ready. The seasonal restriction starts immediately.':'You can move this work during your initial setup or the January 1–7 reorganization window.';
+    $('saveWorkBtn').textContent='Save changes';$('deleteBtn').hidden=false;$('bulkPrompt').hidden=true;modalError('workError','');openModal('editOverlay');
+  }
+  $('workForm').addEventListener('submit',e=>{
+    e.preventDefault();const composer=clean($('composerInput').value), title=clean($('workInput').value), place=$('seasonSelect').value;
+    if(!composer||!title){modalError('workError','Please give this composition both a composer and a title.');return;}
+    if(!validPlace(place)){modalError('workError','Choose a valid season or the waiting room.');return;}
+    const duplicate=store.works.some(w=>w.id!==editingId&&identity(w.composer,w.title)===identity(composer,title));
+    if(duplicate){modalError('workError','That composer and composition already appear in your catalog.');return;}
+    if(editingId){
+      const work=store.works.find(w=>w.id===editingId);if(!work)return;
+      if(place!==work.season&&!canMove(work)){modalError('workError','Existing seasonal assignments can only move during initial setup or January 1–7.');return;}
+      work.composer=composer;work.title=title;work.season=place;
+      toast('Composition updated.');
+    }else{store.works.push({id:makeId(),composer,title,season:place,addedAt:new Date().toISOString()});toast('Composition added.');}
+    persist();closeModal('editOverlay');render();
+  });
+  $('deleteBtn').addEventListener('click',()=>{
+    const w=store.works.find(w=>w.id===editingId);if(!w)return;
+    if(!confirm(`Delete “${w.composer}: ${w.title}” from your catalog? This cannot be undone except by restoring a backup.`))return;
+    store.works=store.works.filter(x=>x.id!==editingId);persist();closeModal('editOverlay');render();toast('Composition deleted.');
+  });
+  $('bulkForm').addEventListener('submit',e=>{
+    e.preventDefault();const lines=$('bulkText').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean),place=$('bulkSeason').value;
+    if(!lines.length){modalError('bulkError','Enter at least one composition.');return;}
+    if(lines.length>1000){modalError('bulkError','Please add no more than 1,000 works in one batch.');return;}
+    const seen=new Set(store.works.map(w=>identity(w.composer,w.title)));const additions=[];const problems=[];let duplicates=0;
+    for(let i=0;i<lines.length;i++){
+      const parts=lines[i].split(/\s*\|\s*|\t+|\s+[—–-]\s+/);
+      if(parts.length<2){problems.push(i+1);continue;}
+      const composer=clean(parts.shift()),title=clean(parts.join(' — '));
+      if(!composer||!title||composer.length>120||title.length>220){problems.push(i+1);continue;}
+      const key=identity(composer,title);if(seen.has(key)){duplicates++;continue;}seen.add(key);
+      additions.push({id:makeId(),composer,title,season:place,addedAt:new Date().toISOString()});
+    }
+    if(problems.length){modalError('bulkError',`Could not read line${problems.length===1?'':'s'} ${problems.slice(0,12).join(', ')}${problems.length>12?'…':''}. Use Composer | Work on every line. Nothing has been added yet.`);return;}
+    if(!additions.length){modalError('bulkError',`No new compositions to add. ${duplicates} duplicate${duplicates===1?' was':'s were'} skipped.`);return;}
+    store.works.push(...additions);persist();closeModal('bulkOverlay');render();toast(`Added ${prettyCount(additions.length)}.${duplicates?` Skipped ${duplicates} duplicates.`:''}`);
+  });
+  const exportData=()=>{
+    const out={app:'The Four Seasons',version:1,exportedAt:new Date().toISOString(),setupComplete:store.setupComplete,works:store.works};
+    const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`four-seasons-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('JSON backup created.');
+  };
+  $('backupBtn').onclick=exportData;$('exportBtn').onclick=exportData;
+  $('importBtn').onclick=()=>$('importFile').click();
+  $('importFile').addEventListener('change',async e=>{
+    const file=e.target.files?.[0];e.target.value='';if(!file)return;
+    try{
+      if(file.size>5_000_000)throw Error('This file is too large for a repertoire backup.');
+      const json=JSON.parse(await file.text());
+      if(!json||json.version!==1||!Array.isArray(json.works))throw Error('This is not a supported Four Seasons backup.');
+      if(json.works.length>20000)throw Error('This backup contains too many compositions.');
+      const works=[],seen=new Set();
+      for(const w of json.works){
+        if(!w||typeof w.composer!=='string'||typeof w.title!=='string'||!validPlace(w.season))throw Error('This backup contains an invalid composition.');
+        const composer=clean(w.composer),title=clean(w.title);
+        if(!composer||!title||composer.length>120||title.length>220)throw Error('This backup contains an incomplete composition.');
+        const key=identity(composer,title);if(seen.has(key))throw Error('This backup contains duplicate compositions.');seen.add(key);
+        works.push({id:makeId(),composer,title,season:w.season,addedAt:typeof w.addedAt==='string'?w.addedAt:new Date().toISOString()});
+      }
+      if(!confirm(`Replace your current catalog of ${prettyCount(store.works.length)} with the ${prettyCount(works.length)} in this backup?\n\nThis replaces the entire collection, including your initial-setup status.`))return;
+      store={version:1,setupComplete:Boolean(json.setupComplete),works};persist();view=getSeason();$('searchInput').value='';render();closeModal('settingsOverlay');toast(`Restored ${prettyCount(works.length)}.`);
+    }catch(err){alert(`Could not import backup: ${err.message}`);}
+  });
+  $('completeSetupBtn').addEventListener('click',()=>{
+    if(store.setupComplete)return;
+    if(!confirm('Finish initial setup? You can still add new music or promote waiting-room works any time, but existing seasonal assignments can only be moved January 1–7.'))return;
+    store.setupComplete=true;persist();render();closeModal('settingsOverlay');toast('Initial assignments are now locked.');
+  });
+  $('settingsBtn').onclick=()=>{renderSettings();openModal('settingsOverlay');};
+  $('addBtn').onclick=()=>openAdd();
+  $('waitingBtn').onclick=()=>{view='Waiting';$('searchInput').value='';render();};
+  $('searchInput').addEventListener('input',render);
+  $('bulkFromEditBtn').onclick=()=>{closeModal('editOverlay');openAdd(true);};
+  $('bulkFromSettingsBtn').onclick=()=>{closeModal('settingsOverlay');openAdd(true);};
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
+  document.querySelectorAll('.overlay').forEach(overlay=>overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal(overlay.id);}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){const open=document.querySelector('.overlay.open');if(open)closeModal(open.id);}});
+  setInterval(()=>{if(getSeason()!==getSeason(new Date(Date.now()-61000)) || inJanuaryWeek()!==inJanuaryWeek(new Date(Date.now()-61000)))render();},60000);
+  if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  render();
+})();
+</script>
+</body>
+</html>
