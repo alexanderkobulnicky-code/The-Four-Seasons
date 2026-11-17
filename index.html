@@ -137,6 +137,35 @@
   };
   const persist = () => {try{localStorage.setItem(KEY,JSON.stringify(store));return true;}catch(e){console.error(e);toast('Unable to save on this device. Export a backup now.',true);return false;}};
   function toast(message,error=false){const node=$('toast');node.textContent=message;node.classList.toggle('error',error);node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),3500);}
+  const youtubeSearch = work => `https://www.youtube.com/results?search_query=${encodeURIComponent(work.composer+' '+work.title)}`;
+  function openYouTubeSearch(event, work){
+    // On iOS, try opening the native YouTube app. Keep the normal web link as a fallback.
+    const isIOS=/iPad|iPhone|iPod/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+    if(!isIOS) return;
+    event.preventDefault();
+    const query=encodeURIComponent(work.composer+' '+work.title);
+    const appUrl=`youtube://www.youtube.com/results?search_query=${query}`;
+    let leftPage=false;
+    let fallbackTimer;
+    function cleanup(){
+      document.removeEventListener('visibilitychange',onVisibility);
+      window.removeEventListener('pagehide',onPageHide);
+    }
+    function onLeave(){
+      leftPage=true;
+      clearTimeout(fallbackTimer);
+      cleanup();
+    }
+    function onVisibility(){if(document.hidden)onLeave();}
+    function onPageHide(){onLeave();}
+    document.addEventListener('visibilitychange',onVisibility);
+    window.addEventListener('pagehide',onPageHide);
+    fallbackTimer=setTimeout(()=>{
+      cleanup();
+      if(!leftPage && !document.hidden)window.location.assign(youtubeSearch(work));
+    },2300);
+    window.location.href=appUrl;
+  }
   function render(){
     const today=getSeason();document.documentElement.style.setProperty('--accent',colors[today]);
     $('heroEyebrow').textContent=`Now listening · ${today}`;
@@ -182,7 +211,7 @@
       info.appendChild(title);info.appendChild(safeText('div','work-composer',w.composer));row.appendChild(info);
       const actions=safeText('div','work-actions','');
       if(unlocked(w.season)){
-        const a=document.createElement('a');a.className='row-btn play';a.href=`https://www.youtube.com/results?search_query=${encodeURIComponent(w.composer+' '+w.title)}`;a.target='_blank';a.rel='noopener noreferrer';a.title=`Search YouTube for ${w.composer}: ${w.title}`;a.appendChild(icon('external',13));a.appendChild(document.createTextNode('YouTube'));actions.appendChild(a);
+        const a=document.createElement('a');a.className='row-btn play';a.href=youtubeSearch(w);a.target='_blank';a.rel='noopener noreferrer';a.title=`Search YouTube for ${w.composer}: ${w.title}`;a.addEventListener('click',event=>openYouTubeSearch(event,w));a.appendChild(icon('external',13));a.appendChild(document.createTextNode('YouTube'));actions.appendChild(a);
       } else {
         const s=safeText('span','lock-msg','Out of season');s.title=`Available ${longDate(nextSeasonFor(w.season))}`;actions.appendChild(s);
       }
